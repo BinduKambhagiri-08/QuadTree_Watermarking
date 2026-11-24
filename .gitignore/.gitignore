@@ -1,0 +1,36 @@
+
+# Build folders
+build/
+cmake-build-debug/
+cmake-build-release/
+out/
+
+# Compiled C++ files
+*.exe
+*.o
+*.obj
+*.dll
+*.lib
+
+# Visual Studio files
+.vs/
+Debug/
+Release/
+
+# VS Code settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Sensitive files
+.env
+.env.*
+!.env.example

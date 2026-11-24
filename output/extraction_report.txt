@@ -1,0 +1,10 @@
+==================================================
+WATERMARK EXTRACTION REPORT
+==================================================
+Extraction Status:     SUCCESS
+Magic Header Check:    VALID (0x5154574D)
+Message Byte Length:   28 bytes
+Bits Decoded:          288 bits
+Extraction Time:       0.096 ms
+Extracted Ownership:   "PROPERTY OF DAA STUDENT TEAM"
+==================================================

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuadTree Invisible Image Watermarking | DAA Mini Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand-header">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="12" y1="3" x2="12" y2="21"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <rect x="5" y="5" width="4" height="4" fill="currentColor" fill-opacity="0.3"></rect>
+                        <rect x="15" y="15" width="4" height="4" fill="currentColor" fill-opacity="0.3"></rect>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h2>QUADTREE WM</h2>
+                    <span class="badge-tech">C++17 • DAA</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#upload" class="nav-item" data-section="upload">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <span>Image Upload</span>
+                </a>
+                <a href="#quadtree" class="nav-item" data-section="quadtree">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>QuadTree Visualization</span>
+                </a>
+                <a href="#texture" class="nav-item" data-section="texture">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                    <span>Texture Detection</span>
+                </a>
+                <a href="#embed" class="nav-item" data-section="embed">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span>Watermark Embedding</span>
+                </a>
+                <a href="#extract" class="nav-item" data-section="extract">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-14 14l-2 2m16-16l-4 4m-8 8l-4 4m16-12l-2 2m-8 8l-2 2"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <span>Watermark Extraction</span>
+                </a>
+                <a href="#metrics" class="nav-item" data-section="metrics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>PSNR & Quality</span>
+                </a>
+                <a href="#daa" class="nav-item" data-section="daa">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                    <span>DAA Analysis</span>
+                </a>
+                <a href="#concepts" class="nav-item" data-section="concepts">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    <span>DAA Viva Guide</span>
+                </a>
+                <a href="#about" class="nav-item" data-section="about">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>About Project</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot online"></span>
+                    <span id="backend-status-text">C++ Backend: Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- TOP APP HEADER -->
+            <header class="app-header">
+                <div class="header-titles">
+                    <h1>QUADTREE IMAGE WATERMARKING</h1>
+                    <p class="subtitle">Invisible Digital Ownership Protection Using Divide and Conquer</p>
+                </div>
+                <div class="header-actions">
+                    <button id="btn-run-demo" class="btn btn-primary glow-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span>Run Complete Demonstration</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-scrollable">
+                <!-- ============================================== -->
+                <!-- SECTION 1: DASHBOARD -->
+                <!-- ============================================== -->
+                <section id="sec-dashboard" class="page-section active">
+                    <div class="hero-banner">
+                        <div class="hero-content">
+                            <span class="hero-tag">DAA MINI PROJECT • ACADEMIC PROTOTYPE</span>
+                            <h2>Divide and Conquer Watermark Architecture</h2>
+                            <p>An intelligent image watermarking system that recursively divides images into quadrants, detects high-variance textured regions, and embeds invisible ownership information into anchor pixels using Least Significant Bit (LSB) encoding.</p>
+                            <div class="hero-pills">
+                                <span class="pill"><strong>Paradigm:</strong> Divide & Conquer</span>
+                                <span class="pill"><strong>Data Structure:</strong> QuadTree</span>
+                                <span class="pill"><strong>Texture Metric:</strong> Spatial Variance</span>
+                                <span class="pill"><strong>Encoding:</strong> 64-bit Header + LSB</span>
+                                <span class="pill"><strong>Engine:</strong> C++17</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STATS CARDS -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-label">Image Dimensions</span>
+                                <h3 id="stat-dimensions">-- x --</h3>
+                                <span class="stat-sub" id="stat-resizing">Awaiting image upload</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon violet">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon></svg>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-label">Total Leaf Blocks</span>
+                                <h3 id="stat-total-leaves">--</h3>
+                                <span class="stat-sub" id="stat-min-size">Min Block: 16x16</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-label">Selected Textured Blocks</span>
+                                <h3 id="stat-selected-blocks">--</h3>
+                                <span class="stat-sub" id="stat-threshold">Threshold: 100.0</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon cyan">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-label">Available Capacity</span>
+                                <h3 id="stat-capacity">-- bits</h3>
+                                <span class="stat-sub" id="stat-capacity-bytes">-- characters</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon orange">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                            </div>
+                            <div class="stat-data">
+                                <span class="stat-label">Verification Status</span>
+                                <h3 id="stat-verification" class="text-neutral">PENDING</h3>
+                                <span class="stat-sub" id="stat-ber">BER: --</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WORKFLOW FLOWCHART -->
+                    <div class="card workflow-card">
+                        <div class="card-header">
+                            <h3>Algorithmic Execution Pipeline</h3>
+                            <span class="badge">Divide & Conquer Workflow</span>
+                        </div>
+                        <div class="workflow-steps">
+                            <div class="workflow-step" id="wf-upload">
+                                <div class="step-num">1</div>
+                                <div class="step-info">
+                                    <h4>Input Image</h4>
+                                    <p>Grayscale & 2^k Normalization</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-quadtree">
+                                <div class="step-num">2</div>
+                                <div class="step-info">
+                                    <h4>QuadTree Division</h4>
+                                    <p>Recursive 4-Quadrant Split</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-variance">
+                                <div class="step-num">3</div>
+                                <div class="step-info">
+                                    <h4>Variance Calc</h4>
+                                    <p>Compute Texture Energy</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-selection">
+                                <div class="step-num">4</div>
+                                <div class="step-info">
+                                    <h4>Region Selection</h4>
+                                    <p>Threshold Filter (Var ≥ T)</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-embed">
+                                <div class="step-num">5</div>
+                                <div class="step-info">
+                                    <h4>LSB Embedding</h4>
+                                    <p>64-bit Header + Message</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-watermarked">
+                                <div class="step-num">6</div>
+                                <div class="step-info">
+                                    <h4>Watermarked PNG</h4>
+                                    <p>Imperceptible Modification</p>
+                                </div>
+                            </div>
+                            <div class="wf-arrow">→</div>
+                            <div class="workflow-step" id="wf-extract">
+                                <div class="step-num">7</div>
+                                <div class="step-info">
+                                    <h4>Bit Extraction</h4>
+                                    <p>Decode Anchors & Verify</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RECENT ACTIVITY PANEL -->
+                    <div class="card activity-card">
+                        <div class="card-header">
+                            <h3>Backend Activity Log</h3>
+                            <button id="btn-clear-logs" class="btn btn-sm btn-outline">Clear Log</button>
+                        </div>
+                        <div id="activity-log-list" class="log-list">
+                            <div class="log-item empty">Awaiting operations. Upload an image or click "Run Complete Demonstration" to start.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 2: IMAGE UPLOAD -->
+                <!-- ============================================== -->
+                <section id="sec-upload" class="page-section">
+                    <div class="section-heading">
+                        <h2>Image Ingestion & Preprocessing</h2>
+                        <p>Upload any PNG, JPG, or BMP file. The C++ OpenCV engine will validate dimensions, convert to grayscale, and normalize to square power-of-two dimensions (e.g. 256x256 or 512x512) for QuadTree decomposition.</p>
+                    </div>
+
+                    <div class="upload-grid">
+                        <div class="card upload-dropzone-card">
+                            <div id="dropzone" class="dropzone">
+                                <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <h3>Drag & Drop Image File Here</h3>
+                                <p>Supports PNG, JPG, JPEG, and BMP formats</p>
+                                <div class="dropzone-buttons">
+                                    <label class="btn btn-primary">
+                                        <span>Browse Files</span>
+                                        <input type="file" id="file-input" accept="image/png, image/jpeg, image/jpg, image/bmp" style="display: none;">
+                                    </label>
+                                    <button id="btn-load-sample" class="btn btn-secondary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                                        <span>Load Offline Benchmark</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="upload-status-box" class="info-callout" style="display: none;">
+                                <div class="info-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                    <span>Preprocessing Notification</span>
+                                </div>
+                                <p id="upload-status-text">--</p>
+                            </div>
+                        </div>
+
+                        <div class="card preview-card">
+                            <div class="card-header">
+                                <h3>Active Image Metadata</h3>
+                                <span id="img-badge-status" class="badge badge-warning">No Image Loaded</span>
+                            </div>
+                            <div class="preview-container">
+                                <div class="preview-box">
+                                    <span class="preview-tag">Color / Original</span>
+                                    <div class="img-wrapper">
+                                        <img id="img-preview-color" alt="Original Preview" src="" style="display: none;">
+                                        <div id="ph-preview-color" class="placeholder-box">No Image</div>
+                                    </div>
+                                </div>
+                                <div class="preview-box">
+                                    <span class="preview-tag">Grayscale Processed</span>
+                                    <div class="img-wrapper">
+                                        <img id="img-preview-gray" alt="Grayscale Preview" src="" style="display: none;">
+                                        <div id="ph-preview-gray" class="placeholder-box">No Image</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="meta-table">
+                                <div class="meta-row"><span>Filename:</span> <strong id="meta-filename">--</strong></div>
+                                <div class="meta-row"><span>Raw Dimensions:</span> <strong id="meta-raw-dim">--</strong></div>
+                                <div class="meta-row"><span>Processed Grid:</span> <strong id="meta-proc-dim">--</strong></div>
+                                <div class="meta-row"><span>File Size:</span> <strong id="meta-filesize">--</strong></div>
+                                <div class="meta-row"><span>Geometric Scaling:</span> <strong id="meta-scaled">--</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 3: QUADTREE VISUALIZATION -->
+                <!-- ============================================== -->
+                <section id="sec-quadtree" class="page-section">
+                    <div class="section-heading">
+                        <h2>Recursive QuadTree Decomposition</h2>
+                        <p>Divide and Conquer partitions the square matrix recursively into 4 quadrants until reaching the minimum leaf block size. Every coordinate and variance value is calculated in C++17.</p>
+                    </div>
+
+                    <div class="controls-bar card">
+                        <div class="control-group">
+                            <label for="select-block-size">Minimum Leaf Block Size:</label>
+                            <select id="select-block-size" class="form-control">
+                                <option value="8">8 x 8 (Fine Subdivision)</option>
+                                <option value="16" selected>16 x 16 (Standard Balance)</option>
+                                <option value="32">32 x 32 (Coarse Blocks)</option>
+                            </select>
+                        </div>
+                        <div class="control-group slider-group">
+                            <div class="slider-header">
+                                <label for="range-threshold">Variance Threshold (T):</label>
+                                <span id="threshold-val" class="highlight-val">100.0</span>
+                            </div>
+                            <input type="range" id="range-threshold" min="10" max="600" step="5" value="100" class="slider">
+                        </div>
+                        <button id="btn-run-quadtree" class="btn btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <span>Execute C++ QuadTree</span>
+                        </button>
+                    </div>
+
+                    <div class="quadtree-visual-layout">
+                        <div class="card visual-canvas-card">
+                            <div class="canvas-header">
+                                <div class="view-toggles">
+                                    <button class="btn btn-sm btn-toggle active" data-view="division">Subdivisions (Blue)</button>
+                                    <button class="btn btn-sm btn-toggle" data-view="selected">Texture Selection (Green/Red)</button>
+                                    <button class="btn btn-sm btn-toggle" data-view="combined">Combined</button>
+                                    <button class="btn btn-sm btn-toggle" data-view="original">Original</button>
+                                </div>
+                                <span class="canvas-legend">
+                                    <span class="legend-dot green"></span> Selected
+                                    <span class="legend-dot red"></span> Rejected
+                                    <span class="legend-dot blue"></span> Grid
+                                </span>
+                            </div>
+
+                            <div class="canvas-stage">
+                                <img id="quadtree-main-img" src="" alt="QuadTree Overlay" style="display: none;">
+                                <div id="quadtree-placeholder" class="placeholder-box large">Run QuadTree division to generate interactive visualization</div>
+                                <canvas id="quadtree-interactive-canvas"></canvas>
+                            </div>
+
+                            <div id="block-inspector-panel" class="inspector-panel" style="display: none;">
+                                <h4>Block Inspector (Hover/Click)</h4>
+                                <div class="inspector-details">
+                                    <span>ID: <strong id="insp-id">#--</strong></span>
+                                    <span>Coords: <strong id="insp-coord">(X: --, Y: --)</strong></span>
+                                    <span>Size: <strong id="insp-size">-- x --</strong></span>
+                                    <span>Variance: <strong id="insp-variance">--</strong></span>
+                                    <span>Status: <strong id="insp-status">--</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card visual-stats-card">
+                            <div class="card-header">
+                                <h3>DAA Recursion Metrics</h3>
+                            </div>
+                            <div class="recursion-stats">
+                                <div class="r-row"><span>Total Leaf Blocks:</span> <strong id="qd-total-leaves">--</strong></div>
+                                <div class="r-row"><span>Selected Blocks (Var ≥ T):</span> <strong id="qd-selected" class="text-success">--</strong></div>
+                                <div class="r-row"><span>Rejected Blocks (Var &lt; T):</span> <strong id="qd-rejected" class="text-danger">--</strong></div>
+                                <div class="r-row"><span>Selection Ratio:</span> <strong id="qd-ratio">--%</strong></div>
+                                <div class="r-row"><span>Max Recursion Depth:</span> <strong id="qd-depth">-- levels</strong></div>
+                                <div class="r-row"><span>Recursive Function Calls:</span> <strong id="qd-calls">--</strong></div>
+                                <div class="r-row"><span>C++ Execution Time:</span> <strong id="qd-time" class="text-cyan">-- ms</strong></div>
+                            </div>
+
+                            <div class="concept-callout">
+                                <h4>Divide & Conquer Base Case</h4>
+                                <p>Recursion terminates when current size <code>s == minimum_block_size</code>. The base case computes block variance &sigma;<sup>2</sup>. If &sigma;<sup>2</sup> &ge; T, the block's anchor pixel <code>(x, y)</code> is designated for 1-bit LSB embedding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 4: TEXTURE DETECTION -->
+                <!-- ============================================== -->
+                <section id="sec-texture" class="page-section">
+                    <div class="section-heading">
+                        <h2>Spatial Variance Texture Analysis</h2>
+                        <p>Human Visual System (HVS) masking: textured regions exhibit high spatial variance, allowing pixel modifications without perceptible visual artifacts.</p>
+                    </div>
+
+                    <div class="texture-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Variance Distribution Histogram</h3>
+                                <span class="badge">Leaf Block Texture Energy</span>
+                            </div>
+                            <div class="chart-container">
+                                <div id="histogram-bars" class="histogram-bars">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                            <div class="chart-footer">
+                                <span>Bins: 0-25 (Smooth) &rarr; 500+ (High Texture)</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>HVS Masking Principle</h3>
+                            </div>
+                            <div class="hvs-explanation">
+                                <div class="hvs-box smooth">
+                                    <h4>Smooth Regions (Low Variance)</h4>
+                                    <p>Flat color and subtle gradients have variance &sigma;<sup>2</sup> &lt; T. The human eye easily spots 1-bit LSB modifications in smooth surfaces as visible dithering noise. <strong>Rejected by QuadTree.</strong></p>
+                                </div>
+                                <div class="hvs-box textured">
+                                    <h4>Textured Regions (High Variance)</h4>
+                                    <p>Edges, fine lines, foliage, and high-frequency patterns have variance &sigma;<sup>2</sup> &ge; T. Masked by natural image activity, 1-bit changes are completely invisible to human observers. <strong>Selected for Watermarking.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card table-card">
+                        <div class="card-header">
+                            <h3>Leaf Blocks Inspection Table</h3>
+                            <div class="table-search">
+                                <input type="text" id="table-filter" placeholder="Filter by Block ID or Status..." class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="blocks-table">
+                                <thead>
+                                    <tr>
+                                        <th>Block ID</th>
+                                        <th>X Anchor</th>
+                                        <th>Y Anchor</th>
+                                        <th>Size</th>
+                                        <th>Computed Variance</th>
+                                        <th>Decision Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="blocks-table-body">
+                                    <tr><td colspan="6" class="text-center">Run QuadTree division to populate block records.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 5: WATERMARK EMBEDDING -->
+                <!-- ============================================== -->
+                <section id="sec-embed" class="page-section">
+                    <div class="section-heading">
+                        <h2>LSB Watermark Embedding</h2>
+                        <p>Embed ownership identity into the top-left anchor pixel of selected high-variance leaf blocks. Uses a deterministic 64-bit header (32-bit Magic + 32-bit Length) followed by UTF-8 payload bits.</p>
+                    </div>
+
+                    <div class="embed-grid">
+                        <div class="card embed-form-card">
+                            <div class="card-header">
+                                <h3>Ownership Watermark Payload</h3>
+                            </div>
+                            <div class="form-group">
+                                <label for="input-wm-message">Digital Ownership Message:</label>
+                                <input type="text" id="input-wm-message" class="form-control" value="COPYRIGHT 2026" placeholder="Enter owner copyright or name...">
+                            </div>
+
+                            <div class="capacity-meter-box">
+                                <div class="meter-labels">
+                                    <span>Capacity Allocation:</span>
+                                    <strong id="meter-ratio-text">0 / 0 bits</strong>
+                                </div>
+                                <div class="meter-bar-track">
+                                    <div id="meter-bar-fill" class="meter-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <div class="meter-breakdown">
+                                    <span>Header: <strong>64 bits</strong></span>
+                                    <span>Payload: <strong id="payload-bit-count">192 bits</strong></span>
+                                    <span>Total Needed: <strong id="total-bits-needed">256 bits</strong></span>
+                                </div>
+                            </div>
+
+                            <div id="capacity-warning" class="alert-box alert-error" style="display: none;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <span id="capacity-warning-text">Insufficient capacity. Reduce variance threshold or minimum block size.</span>
+                            </div>
+
+                            <button id="btn-execute-embed" class="btn btn-primary btn-block">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <span>Embed Watermark in C++</span>
+                            </button>
+                        </div>
+
+                        <div class="card binary-preview-card">
+                            <div class="card-header">
+                                <h3>Binary Stream Decomposition</h3>
+                                <span class="badge">LSB Bitstream Layout</span>
+                            </div>
+                            <div class="binary-breakdown">
+                                <div class="binary-section">
+                                    <span class="bin-label">32-Bit Magic Identifier (0x5154574D = 'QTWM'):</span>
+                                    <code class="binary-code" id="code-magic-bits">01010001 01010100 01010111 01001101</code>
+                                </div>
+                                <div class="binary-section">
+                                    <span class="bin-label">32-Bit Payload Length:</span>
+                                    <code class="binary-code" id="code-len-bits">00000000 00000000 00000000 00011000</code>
+                                </div>
+                                <div class="binary-section">
+                                    <span class="bin-label">UTF-8 Payload Bitstream:</span>
+                                    <div class="binary-scroll-box" id="code-payload-bits">
+                                        Enter a message to inspect binary conversion.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="embedding-formula-callout">
+                                <code>new_pixel = (original_pixel &amp; 0xFE) | watermark_bit</code>
+                                <p>Row-major anchor pixel traversal guarantees 100% deterministic spatial extraction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 6: WATERMARK EXTRACTION -->
+                <!-- ============================================== -->
+                <section id="sec-extract" class="page-section">
+                    <div class="section-heading">
+                        <h2>Watermarked Image & Blind Extraction</h2>
+                        <p>Extract the embedded watermark directly from the physical pixel buffer of the watermarked PNG. No stored original text is referenced—extraction is performed live in C++.</p>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Original vs Watermarked</h3>
+                                <span class="badge">Imperceptibility Check</span>
+                            </div>
+                            <div class="compare-view">
+                                <div class="compare-pane">
+                                    <span class="pane-tag">Original Image</span>
+                                    <img id="img-compare-original" src="" alt="Original">
+                                    <div id="ph-compare-original" class="placeholder-box">No Image</div>
+                                </div>
+                                <div class="compare-pane">
+                                    <span class="pane-tag">Watermarked (LSB Embedded)</span>
+                                    <img id="img-compare-watermarked" src="" alt="Watermarked">
+                                    <div id="ph-compare-watermarked" class="placeholder-box">Awaiting Embedding</div>
+                                </div>
+                            </div>
+                            <div class="card-actions">
+                                <a id="btn-download-watermarked" class="btn btn-outline" href="#" download="watermarked_image.png">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    <span>Download Watermarked PNG</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Magnified Difference Map</h3>
+                                <span class="badge">&Delta; = |Orig - Watermarked| &times; 255</span>
+                            </div>
+                            <div class="diff-view">
+                                <img id="img-difference-map" src="" alt="Difference Map" style="display: none;">
+                                <div id="ph-difference-map" class="placeholder-box">Difference map generated upon embedding</div>
+                            </div>
+                            <p class="diff-desc">LSB alterations modify pixel intensity by at most &plusmn;1, which is invisible to the human eye. This map multiplies differences by 255 to reveal the exact QuadTree anchor coordinates.</p>
+                        </div>
+                    </div>
+
+                    <!-- EXTRACTION & VERIFICATION CARD -->
+                    <div class="card extraction-card">
+                        <div class="card-header">
+                            <h3>Digital Watermark Extraction & Verification</h3>
+                            <div class="extract-buttons">
+                                <button id="btn-execute-extract" class="btn btn-primary">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                    <span>Extract Watermark from Pixels</span>
+                                </button>
+                                <button id="btn-execute-verify" class="btn btn-secondary">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                    <span>Verify Ownership</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="verification-banner" class="verification-banner idle">
+                            <div class="v-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                            </div>
+                            <div class="v-text">
+                                <h3 id="verification-headline">Awaiting Extraction</h3>
+                                <p id="verification-subtext">Click "Extract Watermark from Pixels" to parse the 64-bit header and payload.</p>
+                            </div>
+                        </div>
+
+                        <div class="extracted-details-grid">
+                            <div class="e-detail"><span>Original Signature:</span> <strong id="ext-original-sig">--</strong></div>
+                            <div class="e-detail"><span>Extracted Signature:</span> <strong id="ext-extracted-sig">--</strong></div>
+                            <div class="e-detail"><span>Magic Identifier:</span> <strong id="ext-magic">--</strong></div>
+                            <div class="e-detail"><span>Payload Length:</span> <strong id="ext-length">-- bytes</strong></div>
+                            <div class="e-detail"><span>Extraction Time:</span> <strong id="ext-time">-- ms</strong></div>
+                            <div class="e-detail"><span>Bit Error Rate:</span> <strong id="ext-ber">--%</strong></div>
+                        </div>
+
+                        <div class="report-download-row">
+                            <a id="btn-download-manifest" class="btn btn-sm btn-outline" href="#" download="watermark_manifest.txt">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                <span>Download Manifest (.txt)</span>
+                            </a>
+                            <a id="btn-download-report" class="btn btn-sm btn-outline" href="#" download="extraction_report.txt">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                <span>Download Extraction Report (.txt)</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 7: PSNR & QUALITY METRICS -->
+                <!-- ============================================== -->
+                <section id="sec-metrics" class="page-section">
+                    <div class="section-heading">
+                        <h2>Fidelity & Image Quality Analysis</h2>
+                        <p>Mathematical proof of imperceptibility via Mean Squared Error (MSE) and Peak Signal-to-Noise Ratio (PSNR) calculated across all image pixels in C++.</p>
+                    </div>
+
+                    <div class="metrics-cards-grid">
+                        <div class="card metric-highlight">
+                            <span class="m-label">Peak Signal-to-Noise Ratio</span>
+                            <h2 id="qm-psnr" class="m-val text-success">-- dB</h2>
+                            <p class="m-sub">&gt; 40 dB is considered invisible to human observers</p>
+                        </div>
+                        <div class="card metric-highlight">
+                            <span class="m-label">Mean Squared Error (MSE)</span>
+                            <h2 id="qm-mse" class="m-val text-cyan">--</h2>
+                            <p class="m-sub">Average squared intensity distortion per pixel</p>
+                        </div>
+                        <div class="card metric-highlight">
+                            <span class="m-label">Modified Pixels</span>
+                            <h2 id="qm-pixels" class="m-val text-violet">--</h2>
+                            <p class="m-sub" id="qm-pixels-percent">--% of total image canvas</p>
+                        </div>
+                        <div class="card metric-highlight">
+                            <span class="m-label">Payload Injected</span>
+                            <h2 id="qm-bits" class="m-val text-orange">-- bits</h2>
+                            <p class="m-sub">64-bit header + message stream</p>
+                        </div>
+                    </div>
+
+                    <div class="card formulas-card">
+                        <div class="card-header">
+                            <h3>Mathematical Formulations</h3>
+                        </div>
+                        <div class="formulas-grid">
+                            <div class="formula-box">
+                                <h4>Mean Squared Error (MSE)</h4>
+                                <div class="math-display">MSE = (1 / (M &times; N)) &sum;<sub>i,j</sub> [ I(i,j) - I<sub>w</sub>(i,j) ]<sup>2</sup></div>
+                                <p>Quantifies cumulative Euclidean variance between original canvas <code>I</code> and stego-image <code>I_w</code>.</p>
+                            </div>
+                            <div class="formula-box">
+                                <h4>Peak Signal-to-Noise Ratio (PSNR)</h4>
+                                <div class="math-display">PSNR = 10 &times; log<sub>10</sub>( 255<sup>2</sup> / MSE )</div>
+                                <p>Logarithmic decibel metric. When MSE &rarr; 0, PSNR &rarr; &infin; dB (lossless identity).</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 8: DAA PERFORMANCE ANALYSIS -->
+                <!-- ============================================== -->
+                <section id="sec-daa" class="page-section">
+                    <div class="section-heading">
+                        <h2>Design & Analysis of Algorithms (DAA) Evaluation</h2>
+                        <p>Formal recurrence relation, Master Theorem proof, asymptotic bounds, and empirical runtime telemetry measured via high-resolution hardware timers.</p>
+                    </div>
+
+                    <div class="daa-grid">
+                        <div class="card recurrence-card">
+                            <div class="card-header">
+                                <h3>Recurrence Relation & Master Theorem</h3>
+                                <span class="badge">Master Theorem Case 1</span>
+                            </div>
+                            <div class="recurrence-content">
+                                <div class="math-box">
+                                    <div class="eq-line">T(n) = 4T(n / 2) + o(n<sup>2</sup>)</div>
+                                    <div class="eq-sub">Where: a = 4 (quadrants), b = 2 (subdivision factor)</div>
+                                </div>
+                                <div class="proof-steps">
+                                    <div class="proof-step">
+                                        <span class="step-badge">Step 1</span>
+                                        <p>Compute critical exponent: <code>log<sub>b</sub>(a) = log<sub>2</sub>(4) = 2</code>. Thus <code>n<sup>log<sub>b</sub>(a)</sup> = n<sup>2</sup></code>.</p>
+                                    </div>
+                                    <div class="proof-step">
+                                        <span class="step-badge">Step 2</span>
+                                        <p>Subdivision step at non-leaf node takes constant coordinate splitting <code>f(n) = O(1) = O(n<sup>2 - &epsilon;</sup>)</code> with &epsilon; = 2.</p>
+                                    </div>
+                                    <div class="proof-step">
+                                        <span class="step-badge">Step 3</span>
+                                        <p>By Master Theorem Case 1: <code>T(n) = &Theta;(n<sup>log<sub>b</sub> a</sup>) = &Theta;(n<sup>2</sup>)</code>.</p>
+                                    </div>
+                                    <div class="proof-step">
+                                        <span class="step-badge">Important Clarification</span>
+                                        <p>In our implementation, variance is calculated only at leaf blocks. Total leaf pixels sum to N<sup>2</sup>. For fixed leaf size S, total time is strictly <strong>&Theta;(n<sup>2</sup>)</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card timings-card">
+                            <div class="card-header">
+                                <h3>Empirical C++ Benchmark Timings</h3>
+                                <span class="badge">std::chrono Telemetry</span>
+                            </div>
+                            <div class="timing-meters">
+                                <div class="timing-meter">
+                                    <div class="tm-label"><span>QuadTree Subdivision:</span> <strong id="t-quadtree">-- ms</strong></div>
+                                    <div class="tm-track"><div id="tm-bar-quadtree" class="tm-bar" style="width: 20%;"></div></div>
+                                </div>
+                                <div class="timing-meter">
+                                    <div class="tm-label"><span>Variance Texture Scanning:</span> <strong id="t-variance">-- ms</strong></div>
+                                    <div class="tm-track"><div id="tm-bar-variance" class="tm-bar" style="width: 45%;"></div></div>
+                                </div>
+                                <div class="timing-meter">
+                                    <div class="tm-label"><span>LSB Embedding:</span> <strong id="t-embed">-- ms</strong></div>
+                                    <div class="tm-track"><div id="tm-bar-embed" class="tm-bar" style="width: 15%;"></div></div>
+                                </div>
+                                <div class="timing-meter">
+                                    <div class="tm-label"><span>Watermark Extraction:</span> <strong id="t-extract">-- ms</strong></div>
+                                    <div class="tm-track"><div id="tm-bar-extract" class="tm-bar" style="width: 10%;"></div></div>
+                                </div>
+                                <div class="timing-meter">
+                                    <div class="tm-label"><span>Quality & PSNR Calculation:</span> <strong id="t-metrics">-- ms</strong></div>
+                                    <div class="tm-track"><div id="tm-bar-metrics" class="tm-bar" style="width: 10%;"></div></div>
+                                </div>
+                            </div>
+                            <div class="total-timing-box">
+                                <span>Total End-to-End Execution:</span>
+                                <strong id="t-total" class="text-success">-- ms</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RECURSION TREE VISUALIZATION -->
+                    <div class="card recursion-tree-card">
+                        <div class="card-header">
+                            <h3>Interactive QuadTree Recursion Tree Diagram</h3>
+                            <span class="badge">4-Way Branching</span>
+                        </div>
+                        <div class="tree-container">
+                            <svg id="svg-recursion-tree" viewBox="0 0 800 260" class="recursion-svg">
+                                <!-- Tree rendered via JS -->
+                            </svg>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 9: DAA CONCEPTS & VIVA PREP -->
+                <!-- ============================================== -->
+                <section id="sec-concepts" class="page-section">
+                    <div class="section-heading">
+                        <h2>DAA Viva Voce Preparation Guide</h2>
+                        <p>Essential theoretical concepts, algorithm definitions, and frequently asked viva questions with clear answers for academic project evaluation.</p>
+                    </div>
+
+                    <div class="viva-accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>1. What is the Divide and Conquer algorithmic paradigm?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Divide and Conquer breaks a problem into smaller independent subproblems of the same type (Divide), solves them recursively until a trivial base condition is reached (Conquer), and merges their results into the final solution (Combine).</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>2. How does a QuadTree divide a 2D digital image?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>A QuadTree decomposes a 2D spatial region recursively into four non-overlapping quadrants: Top-Left (NW), Top-Right (NE), Bottom-Left (SW), and Bottom-Right (SE). Each quadrant has half the dimension (width/2, height/2) of its parent node.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>3. What is the base condition of the recursive QuadTree in this project?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Recursion terminates when <code>block_size &le; minimum_leaf_size</code> (configured to 8, 16, or 32 pixels). Instead of dividing further, the algorithm computes the block's spatial variance and classifies it as selected (textured) or rejected (smooth).</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>4. Why do we embed watermarks in high-variance textured regions?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Due to the spatial masking properties of the Human Visual System (HVS), humans are highly sensitive to noise in smooth, uniform areas but cannot perceive subtle 1-bit intensity variations within busy, textured patterns and sharp edge boundaries.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>5. What is Least Significant Bit (LSB) embedding?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>In an 8-bit grayscale pixel (0-255), the 0th bit contributes only 2<sup>0</sup> = 1 to the pixel's luminosity. LSB embedding clears this bit using a bitwise mask (<code>pixel &amp; 0xFE</code>) and inserts a watermark bit via bitwise OR (<code>| bit</code>).</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>6. Why do we need a 64-bit header in the watermark payload?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>The 64-bit header consists of a 32-bit Magic Identifier (<code>0x5154574D</code>) to verify watermark authenticity and a 32-bit message length integer. This allows blind extraction without hardcoding message lengths or prior knowledge of the text.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>7. What is the time complexity of the QuadTree decomposition?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>For an N &times; N image with a fixed minimum block size S, the total number of leaf blocks is (N/S)<sup>2</sup>. Because all leaf blocks partition the image without overlap, the total variance calculation across all leaves scans N<sup>2</sup> pixels exactly once. Hence, time complexity is <strong>&Theta;(N<sup>2</sup>)</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>8. What are the limitations of basic spatial LSB watermarking?</span>
+                                <span class="acc-chevron">▼</span>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Spatial LSB watermarks are fragile against lossy JPEG compression, aggressive spatial cropping, resizing, and Gaussian filtering, as lossy algorithms discard high-frequency least significant bits. In production, frequency-domain methods (DCT/DWT) are preferred for robustness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- SECTION 10: ABOUT PROJECT -->
+                <!-- ============================================== -->
+                <section id="sec-about" class="page-section">
+                    <div class="section-heading">
+                        <h2>Project Overview & Specifications</h2>
+                        <p>Academic Design and Analysis of Algorithms Mini-Project implementation details.</p>
+                    </div>
+
+                    <div class="card about-card">
+                        <div class="about-grid">
+                            <div class="about-item">
+                                <h4>Project Title</h4>
+                                <p>QuadTree-Based Invisible Image Watermark Embedding Using Divide and Conquer</p>
+                            </div>
+                            <div class="about-item">
+                                <h4>Course / Subject</h4>
+                                <p>Design and Analysis of Algorithms (DAA) Laboratory</p>
+                            </div>
+                            <div class="about-item">
+                                <h4>Implementation Language</h4>
+                                <p>Standard C++17 (GNU GCC 16.2.0 / MinGW-w64)</p>
+                            </div>
+                            <div class="about-item">
+                                <h4>Backend Networking</h4>
+                                <p>Lightweight Embedded C++ HTTP Server (cpp-httplib)</p>
+                            </div>
+                            <div class="about-item">
+                                <h4>Computer Vision</h4>
+                                <p>OpenCV 4.x Compatible Image Processing Pipeline</p>
+                            </div>
+                            <div class="about-item">
+                                <h4>Frontend UI</h4>
+                                <p>Vanilla HTML5, Modern CSS3 & Fetch API (Zero external framework bloat)</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

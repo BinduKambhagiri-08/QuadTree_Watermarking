@@ -1,0 +1,7 @@
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/QuadTreeServer.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/test_quadtree.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/test_watermark.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/test_metrics.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/test.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/edit_cache.dir
+C:/Users/DELL/.gemini/antigravity/scratch/QuadTree_Watermarking/build/CMakeFiles/rebuild_cache.dir
